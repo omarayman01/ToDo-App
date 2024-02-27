@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/view/constants.dart';
+import 'package:todo_app/view/features/home/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,22 +11,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       // theme: AppTheme.lightTheme,
       // darkTheme: AppTheme.darkTheme,
       // themeMode: Provider.of<SettingsProvider>(context).themeMode,
-      // routes: {
-      //   Routes.homeView: (context) => const HomeView(),
-      //   Routes.hadethView: (context) => const HadethView(),
-      //   Routes.quranView: (context) => const QuranView(),
-      //   Routes.radioView: (context) => const RadioView(),
-      //   Routes.sebhaView: (context) => const SebhaView(),
-      //   Routes.settingsView: (context) => const SettingsView(),
-      //   Routes.suraDetails: (context) => const SuraDetailsView(),
-      //   Routes.hadethDetails: (context) => const HadethDetailsView(),
-      // },
+      routes: {Routes.homeScreenRoute: (context) => const HomeScreen()},
       debugShowCheckedModeBanner: false,
-      // initialRoute: Routes.homeView,
+      initialRoute: Routes.homeScreenRoute,
       // title: 'Localizations Sample App',
       // locale: Locale(Provider.of<SettingsProvider>(context).language),
       // localizationsDelegates: AppLocalizations.localizationsDelegates,
