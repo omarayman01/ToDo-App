@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/view/app_theme.dart';
 import 'package:todo_app/view/constants.dart';
 import 'package:todo_app/view/features/home/home_screen.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:todo_app/view_model/settings_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (_) => SettingsProvider(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -11,28 +20,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
     return MaterialApp(
-      // theme: AppTheme.lightTheme,
-      // darkTheme: AppTheme.darkTheme,
-      // themeMode: Provider.of<SettingsProvider>(context).themeMode,
+      theme: AppTheme.lightTheme,
+      locale: Locale(settingsProvider.languageCode),
+      darkTheme: AppTheme.darkTheme,
+      themeMode: settingsProvider.themeMode,
       routes: {Routes.homeScreenRoute: (context) => const HomeScreen()},
       debugShowCheckedModeBanner: false,
       initialRoute: Routes.homeScreenRoute,
-      // title: 'Localizations Sample App',
-      // locale: Locale(Provider.of<SettingsProvider>(context).language),
-      // localizationsDelegates: AppLocalizations.localizationsDelegates,
-      // const [
-      //   // AppLocalizations.delegate, // Add this line
-      //   GlobalMaterialLocalizations.delegate,
-      //   GlobalWidgetsLocalizations.delegate,
-      //   GlobalCupertinoLocalizations.delegate,
-      // ],
-      // supportedLocales: AppLocalizations.supportedLocales,
-      //  const [
-//         Locale('en'),
-//         Locale('ar'), // Arabic
-// // English
-//       ],
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 }
