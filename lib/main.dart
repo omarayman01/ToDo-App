@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/view/app_theme.dart';
 import 'package:todo_app/view/constants.dart';
 import 'package:todo_app/view/features/home/home_screen.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:todo_app/view_model/settings_provider.dart';
 
