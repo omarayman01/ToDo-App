@@ -9,10 +9,31 @@ class AppTheme {
   static Color black = const Color(0xff242424);
   static Color white = const Color(0xffFFFFFF);
   static Color dark = const Color(0xff141922);
+  static Color grey = const Color(0xffC8C9CB);
 
   static ThemeData lightTheme = ThemeData(
-      appBarTheme: AppBarTheme(color: primary),
-      scaffoldBackgroundColor: bckGroundLight);
+      appBarTheme: AppBarTheme(
+          color: primary,
+          titleTextStyle: TextStyle(
+              color: white, fontSize: 22, fontWeight: FontWeight.bold)),
+      scaffoldBackgroundColor: bckGroundLight,
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        selectedItemColor: primary,
+        unselectedItemColor: grey,
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: primary,
+          foregroundColor: white,
+          shape: CircleBorder(side: BorderSide(color: white, width: 3.5))),
+      textTheme: TextTheme(
+          bodyMedium: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.bold, color: primary),
+          bodySmall: TextStyle(
+              fontSize: 16, fontWeight: FontWeight.w600, color: black),
+          bodyLarge: TextStyle(
+              fontSize: 20, fontWeight: FontWeight.w400, color: black)));
   static ThemeData darkTheme = ThemeData(
       appBarTheme: AppBarTheme(color: primary),
       scaffoldBackgroundColor: bckGroundDark);
