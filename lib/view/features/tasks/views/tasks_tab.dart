@@ -1,0 +1,49 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_timeline_calendar/timeline/model/calendar_options.dart';
+import 'package:flutter_timeline_calendar/timeline/model/day_options.dart';
+import 'package:flutter_timeline_calendar/timeline/model/headers_options.dart';
+import 'package:flutter_timeline_calendar/timeline/utils/calendar_types.dart';
+import 'package:flutter_timeline_calendar/timeline/widget/timeline_calendar.dart';
+import 'package:todo_app/view/app_theme.dart';
+import 'package:todo_app/view/features/tasks/widgets/custom_task.dart';
+
+class TasksTab extends StatelessWidget {
+  const TasksTab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        TimelineCalendar(
+          calendarType: CalendarType.GREGORIAN,
+          calendarLanguage: "en",
+          calendarOptions: CalendarOptions(
+            viewType: ViewType.DAILY,
+            toggleViewType: true,
+            headerMonthElevation: 10,
+            headerMonthShadowColor: Colors.black26,
+            headerMonthBackColor: Colors.transparent,
+          ),
+          dayOptions: DayOptions(
+              compactMode: true,
+              weekDaySelectedColor: AppTheme.primary,
+              weekDayUnselectedColor: AppTheme.black,
+              selectedBackgroundColor: AppTheme.primary,
+              disableDaysBeforeNow: false),
+          headerOptions: HeaderOptions(
+              weekDayStringType: WeekDayStringTypes.SHORT,
+              monthStringType: MonthStringTypes.FULL,
+              backgroundColor: AppTheme.primary,
+              headerTextColor: Colors.black),
+          onChangeDateTime: (datetime) {},
+        ),
+        const SizedBox(height: 5),
+        Expanded(
+            child: ListView.builder(
+                itemCount: 5,
+                itemBuilder: (context, index) => const CustomTask()))
+      ],
+    );
+  }
+}
