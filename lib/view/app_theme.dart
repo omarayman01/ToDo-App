@@ -18,6 +18,7 @@ class AppTheme {
               color: white, fontSize: 22, fontWeight: FontWeight.bold)),
       scaffoldBackgroundColor: bckGroundLight,
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: white,
         showSelectedLabels: false,
         showUnselectedLabels: false,
         selectedItemColor: primary,
@@ -35,6 +36,27 @@ class AppTheme {
           bodyLarge: TextStyle(
               fontSize: 20, fontWeight: FontWeight.w400, color: black)));
   static ThemeData darkTheme = ThemeData(
-      appBarTheme: AppBarTheme(color: primary),
-      scaffoldBackgroundColor: bckGroundDark);
+      appBarTheme: AppBarTheme(
+          color: primary,
+          titleTextStyle: TextStyle(
+              color: white, fontSize: 22, fontWeight: FontWeight.bold)),
+      scaffoldBackgroundColor: bckGroundDark,
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: dark,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        selectedItemColor: primary,
+        unselectedItemColor: grey,
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: primary,
+          foregroundColor: dark,
+          shape: CircleBorder(side: BorderSide(color: dark, width: 3.5))),
+      textTheme: TextTheme(
+          bodyMedium: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.bold, color: primary),
+          bodySmall: TextStyle(
+              fontSize: 16, fontWeight: FontWeight.w600, color: black),
+          bodyLarge: TextStyle(
+              fontSize: 20, fontWeight: FontWeight.w400, color: black)));
 }

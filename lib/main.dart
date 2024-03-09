@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/view/app_theme.dart';
@@ -6,12 +7,21 @@ import 'package:todo_app/view/features/home/home_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:todo_app/view_model/settings_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:todo_app/view_model/tasks_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(ChangeNotifierProvider(
-    create: (_) => SettingsProvider(),
+  FirebaseFirestore.instance.disableNetwork;
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (_) => SettingsProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => TasksProvider()..getTasks(),
+      ),
+    ],
     child: const MyApp(),
   ));
 }
