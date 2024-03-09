@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/view_model/settings_provider.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField(
@@ -13,8 +15,11 @@ class CustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SettingsProvider settings = Provider.of<SettingsProvider>(context);
     return TextFormField(
-      decoration: InputDecoration(hintText: hinttext),
+      decoration: InputDecoration(
+          hintText: hinttext,
+          hintStyle: TextStyle(color: settings.textThemeColor)),
       maxLines: mxlines,
       controller: controller,
     );

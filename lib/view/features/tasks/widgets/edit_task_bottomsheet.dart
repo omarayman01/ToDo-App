@@ -8,19 +8,18 @@ import 'package:todo_app/view_model/firebase_utils.dart';
 import 'package:todo_app/view_model/settings_provider.dart';
 import 'package:todo_app/view_model/tasks_provider.dart';
 
-class AddTaskBottomSheet extends StatefulWidget {
-  const AddTaskBottomSheet({super.key});
-
+class EditTaskBottomSheet extends StatefulWidget {
+  final TaskModel task;
+  const EditTaskBottomSheet({super.key, required this.task});
   @override
-  State<AddTaskBottomSheet> createState() => _AddTaskBottomSheetState();
+  State<EditTaskBottomSheet> createState() => _EditTaskBottomSheetState();
 }
 
-class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
+class _EditTaskBottomSheetState extends State<EditTaskBottomSheet> {
   dynamic selectedDate = DateTime.now();
   var dateFormate = DateFormat('dd/MM/yyyy');
   var descriptionController = TextEditingController();
   var titleController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
