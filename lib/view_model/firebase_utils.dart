@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/widgets.dart';
 import 'package:todo_app/model/task_model.dart';
 
 class FireBaseUtils {
@@ -16,11 +17,23 @@ class FireBaseUtils {
     return doc.set(task);
   }
 
+  static Future<void> updateTaskToFireStore(TaskModel task) {
+    debugPrint('firestore');
+    debugPrint(task.toString());
+    debugPrint(task.id);
+    final tasksCollection = getTasksCollection();
+    debugPrint(task.toJson().toString());
+    return tasksCollection.doc(task.id).update(task.toJson());
+  }
+
   static Future<List<TaskModel>> getAllTasksFromFireStore() async {
     final tasksCollection = getTasksCollection();
     final snapshot = await tasksCollection.get();
     return snapshot.docs.map((doc) => doc.data()).toList();
   }
 
-  static deleteTaskFromFireStore(String taskID) {}
+  static Future<void> deleteTaskFromFireStore(TaskModel task) {
+    final tasksCollection = getTasksCollection();
+    return tasksCollection.doc(task.id).delete();
+  }
 }

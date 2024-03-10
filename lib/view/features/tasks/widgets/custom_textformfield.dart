@@ -17,6 +17,7 @@ class CustomTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     SettingsProvider settings = Provider.of<SettingsProvider>(context);
     return TextFormField(
+      style: TextStyle(color: settings.textThemeColor),
       decoration: InputDecoration(
           hintText: hinttext,
           hintStyle: TextStyle(color: settings.textThemeColor)),

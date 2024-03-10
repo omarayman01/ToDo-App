@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/model/task_model.dart';
+import 'package:todo_app/view/app_theme.dart';
 import 'package:todo_app/view/features/tasks/widgets/custom_button.dart';
 import 'package:todo_app/view/features/tasks/widgets/custom_textformfield.dart';
 import 'package:todo_app/view_model/firebase_utils.dart';
@@ -77,9 +79,10 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
           ),
           const Spacer(),
           CustomButton(
-            text: 'Add Task',
-            onpressed: addTask,
-          )
+              size: Size(MediaQuery.of(context).size.width, 50),
+              color: AppTheme.primary,
+              text: 'Add Task',
+              onpressed: addTask)
         ],
       ),
     );
@@ -92,14 +95,20 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
           description: descriptionController.text,
           dateTime: selectedDate),
     ).timeout(
-      const Duration(milliseconds: 500),
+      const Duration(milliseconds: 5),
       onTimeout: () {
         Provider.of<TasksProvider>(context, listen: false).getTasks();
         Navigator.pop(context);
-        debugPrint('Done');
+        Fluttertoast.showToast(
+          msg: 'Task Added Successfuly.',
+          toastLength: Toast.LENGTH_SHORT,
+        );
       },
     ).catchError((error) {
-      debugPrint(error.toString());
+      Fluttertoast.showToast(
+        msg: 'Something went wrong!! ',
+        toastLength: Toast.LENGTH_SHORT,
+      );
     });
   }
 }
