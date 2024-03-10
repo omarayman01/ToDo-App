@@ -7,11 +7,9 @@ import 'package:flutter_timeline_calendar/timeline/model/headers_options.dart';
 import 'package:flutter_timeline_calendar/timeline/utils/calendar_types.dart';
 import 'package:flutter_timeline_calendar/timeline/widget/timeline_calendar.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/model/task_model.dart';
 import 'package:todo_app/view/app_theme.dart';
-import 'package:todo_app/view/features/tasks/widgets/add_task_bottomsheet.dart';
 import 'package:todo_app/view/features/tasks/widgets/custom_task.dart';
-import 'package:todo_app/view_model/settings_provider.dart';
+import 'package:todo_app/view/features/tasks/widgets/edit_task_bottomsheet.dart';
 import 'package:todo_app/view_model/tasks_provider.dart';
 
 class TasksTab extends StatelessWidget {
@@ -20,7 +18,6 @@ class TasksTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tasksProvider = Provider.of<TasksProvider>(context);
-    final settingsProvider = Provider.of<SettingsProvider>(context);
 
     return Column(
       children: [
@@ -62,7 +59,8 @@ class TasksTab extends StatelessWidget {
               onTap: () {
                 showModalBottomSheet(
                   context: context,
-                  builder: (_) => const AddTaskBottomSheet(),
+                  builder: (_) =>
+                      EditTaskBottomSheet(task: tasksProvider.tasks[index]),
                 );
               },
               child: CustomTask(task: tasksProvider.tasks[index])),

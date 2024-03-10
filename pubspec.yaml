@@ -37,7 +37,9 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_native_splash: ^2.3.10
+  flutter_slidable: ^3.0.1
   flutter_timeline_calendar: ^1.0.9
+  fluttertoast: ^8.2.4
   google_fonts: ^6.1.0
   intl: ^0.18.0
   jwt_decoder: ^2.0.1

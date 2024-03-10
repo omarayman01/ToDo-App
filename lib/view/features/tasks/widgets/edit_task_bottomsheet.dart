@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/model/task_model.dart';
+import 'package:todo_app/view/app_theme.dart';
 import 'package:todo_app/view/features/tasks/widgets/custom_button.dart';
 import 'package:todo_app/view/features/tasks/widgets/custom_textformfield.dart';
 import 'package:todo_app/view_model/firebase_utils.dart';
@@ -32,20 +34,20 @@ class _EditTaskBottomSheetState extends State<EditTaskBottomSheet> {
       child: Column(
         children: [
           Text(
-            'Add New Task',
+            'Edit Task',
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium!
                 .copyWith(color: settings.textThemeColor),
           ),
           CustomTextFormField(
-            hinttext: 'Task Title',
+            hinttext: widget.task.title,
             mxlines: 1,
             controller: titleController,
           ),
           const SizedBox(height: 12),
           CustomTextFormField(
-            hinttext: 'Description',
+            hinttext: widget.task.description,
             mxlines: 4,
             controller: descriptionController,
           ),
@@ -64,7 +66,7 @@ class _EditTaskBottomSheetState extends State<EditTaskBottomSheet> {
                   context: context,
                   firstDate: DateTime.now(),
                   lastDate: DateTime.now().add(const Duration(days: 365)),
-                  initialDate: DateTime.now(),
+                  initialDate: selectedDate,
                   initialEntryMode: DatePickerEntryMode.calendarOnly);
               setState(() {});
             },
@@ -76,29 +78,61 @@ class _EditTaskBottomSheetState extends State<EditTaskBottomSheet> {
           ),
           const Spacer(),
           CustomButton(
-            text: 'Add Task',
-            onpressed: addTask,
-          )
+            color: AppTheme.primary,
+            text: 'Edit Task',
+            onpressed: () {
+              FireBaseUtils.updateTaskToFireStore(
+                TaskModel(
+                    isDone: widget.task.isDone,
+                    id: widget.task.id,
+                    title: titleController.text,
+                    description: descriptionController.text,
+                    dateTime: selectedDate),
+              ).timeout(
+                const Duration(milliseconds: 5),
+                onTimeout: () {
+                  Provider.of<TasksProvider>(context, listen: false).getTasks();
+                  Navigator.pop(context);
+                  Fluttertoast.showToast(
+                    msg: 'Updated Successfuly.',
+                    toastLength: Toast.LENGTH_SHORT,
+                  );
+                },
+              ).catchError((error) {
+                Fluttertoast.showToast(
+                  msg: 'Something went wrong!!',
+                  toastLength: Toast.LENGTH_SHORT,
+                );
+              });
+            },
+            size: Size(MediaQuery.of(context).size.width, 50),
+          ),
         ],
       ),
     );
   }
 
-  void addTask() {
-    FireBaseUtils.addTaskToFireStore(
-      TaskModel(
-          title: titleController.text,
-          description: descriptionController.text,
-          dateTime: selectedDate),
-    ).timeout(
-      const Duration(milliseconds: 500),
-      onTimeout: () {
-        Provider.of<TasksProvider>(context, listen: false).getTasks();
-        Navigator.pop(context);
-        debugPrint('Done');
-      },
-    ).catchError((error) {
-      debugPrint(error.toString());
-    });
-  }
+  // void editTask() {
+  //   FireBaseUtils.updateTaskToFireStore(
+  //     TaskModel(
+  //         title: titleController.text,
+  //         description: descriptionController.text,
+  //         dateTime: selectedDate),
+  //   ).timeout(
+  //     const Duration(milliseconds: 5),
+  //     onTimeout: () {
+  //       Provider.of<TasksProvider>(context, listen: false).getTasks();
+  //       Navigator.pop(context);
+  //       Fluttertoast.showToast(
+  //         msg: 'Updated Successfuly.',
+  //         toastLength: Toast.LENGTH_SHORT,
+  //       );
+  //     },
+  //   ).catchError((error) {
+  //     Fluttertoast.showToast(
+  //       msg: 'Something went wrong!!',
+  //       toastLength: Toast.LENGTH_SHORT,
+  //     );
+  //   });
+  // }
 }
